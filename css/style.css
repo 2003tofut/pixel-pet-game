@@ -1,0 +1,861 @@
+/* ============================================
+   华莱士游戏站 - 8bit像素风格CSS
+   ============================================ */
+
+/* CSS变量 */
+:root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-card: #0f3460;
+    --pixel-red: #e94560;
+    --pixel-blue: #4fc3f7;
+    --pixel-yellow: #ffd93d;
+    --pixel-green: #6bcb77;
+    --pixel-purple: #9b59b6;
+    --pixel-orange: #ff9f43;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #4a4a6a;
+}
+
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.8;
+    font-size: 10px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* 页面切换 */
+.page {
+    display: none;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: fadeIn 0.3s;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   导航栏
+   ============================================ */
+.site-nav {
+    background: var(--bg-secondary);
+    border-bottom: 4px solid var(--pixel-red);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 20px;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.wallace-logo {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+}
+
+.logo-text {
+    font-size: 12px;
+    color: var(--pixel-yellow);
+    text-shadow: 2px 2px 0 var(--pixel-red);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 10px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.nav-item:hover, .nav-item.active {
+    border-color: var(--pixel-yellow);
+    background: var(--bg-card);
+    color: var(--pixel-yellow);
+}
+
+.nav-icon {
+    font-size: 14px;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: 2px solid var(--pixel-yellow);
+    padding: 8px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--pixel-yellow);
+    margin: 3px 0;
+}
+
+/* ============================================
+   英雄区
+   ============================================ */
+.hero-banner {
+    position: relative;
+    padding: 60px 20px;
+    text-align: center;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: 4px solid var(--pixel-yellow);
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 30%, var(--pixel-red) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, var(--pixel-blue) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, var(--pixel-yellow) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.3;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-wallace {
+    margin-bottom: 20px;
+}
+
+.wallace-hero-img {
+    width: 128px;
+    height: 128px;
+    image-rendering: pixelated;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.hero-title {
+    font-size: 24px;
+    color: var(--pixel-yellow);
+    text-shadow: 4px 4px 0 var(--pixel-red);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.hero-subtitle {
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.hero-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   区块标题
+   ============================================ */
+.section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 14px;
+    color: var(--pixel-yellow);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-icon {
+    font-size: 18px;
+}
+
+/* ============================================
+   轮播图
+   ============================================ */
+.game-carousel {
+    position: relative;
+    overflow: hidden;
+    border: 3px solid var(--border-color);
+    background: var(--bg-secondary);
+    padding: 10px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+}
+
+.carousel-track::-webkit-scrollbar {
+    height: 8px;
+}
+
+.carousel-track::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+.carousel-track::-webkit-scrollbar-thumb {
+    background: var(--pixel-red);
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--pixel-red);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 60px;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    font-family: inherit;
+}
+
+.carousel-btn:hover {
+    background: var(--pixel-yellow);
+    color: var(--bg-primary);
+}
+
+.carousel-btn.prev { left: 0; }
+.carousel-btn.next { right: 0; }
+
+/* ============================================
+   游戏卡片
+   ============================================ */
+.game-card, .news-card {
+    background: var(--bg-card);
+    border: 3px solid var(--border-color);
+    padding: 15px;
+    min-width: 200px;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.game-card:hover, .news-card:hover {
+    border-color: var(--pixel-yellow);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.game-cover {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    margin-bottom: 10px;
+    image-rendering: pixelated;
+    background: var(--bg-primary);
+}
+
+.game-title {
+    font-size: 10px;
+    color: var(--pixel-yellow);
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.game-meta {
+    font-size: 8px;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.game-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 6px;
+    background: var(--pixel-red);
+    color: white;
+    margin-right: 3px;
+}
+
+.game-grid, .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* ============================================
+   资讯卡片
+   ============================================ */
+.news-card {
+    min-width: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-cover {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    margin-bottom: 10px;
+    image-rendering: pixelated;
+}
+
+.news-title {
+    font-size: 10px;
+    color: var(--pixel-yellow);
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+.news-meta {
+    font-size: 8px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.news-excerpt {
+    font-size: 8px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 6px;
+    background: var(--pixel-blue);
+    color: var(--bg-primary);
+    margin-top: 8px;
+}
+
+/* ============================================
+   分类卡片
+   ============================================ */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: var(--bg-card);
+    border: 3px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.2s;
+}
+
+.category-card:hover {
+    border-color: var(--pixel-green);
+    transform: scale(1.05);
+}
+
+.category-icon {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+}
+
+.category-name {
+    font-size: 8px;
+    text-align: center;
+}
+
+/* ============================================
+   页面头部
+   ============================================ */
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 18px;
+    color: var(--pixel-yellow);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ============================================
+   筛选按钮
+   ============================================ */
+.news-tabs, .game-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   详情页
+   ============================================ */
+.news-detail, .game-detail {
+    background: var(--bg-card);
+    border: 4px solid var(--pixel-yellow);
+    padding: 30px;
+}
+
+.detail-cover {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border: 3px solid var(--border-color);
+    margin-bottom: 20px;
+    image-rendering: pixelated;
+}
+
+.detail-title {
+    font-size: 16px;
+    color: var(--pixel-yellow);
+    margin-bottom: 15px;
+}
+
+.detail-meta {
+    font-size: 8px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px dashed var(--border-color);
+}
+
+.detail-content {
+    font-size: 10px;
+    line-height: 2;
+    color: var(--text-primary);
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: var(--pixel-red);
+    color: white;
+    border: none;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 20px;
+    border: 3px solid var(--pixel-yellow);
+}
+
+.download-btn:hover {
+    background: var(--pixel-yellow);
+    color: var(--bg-primary);
+}
+
+/* ============================================
+   搜索
+   ============================================ */
+.search-box {
+    margin-bottom: 30px;
+}
+
+.search-filters {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+    font-size: 10px;
+}
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.search-result-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.search-result-item:hover {
+    border-color: var(--pixel-yellow);
+}
+
+.search-result-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    image-rendering: pixelated;
+    flex-shrink: 0;
+}
+
+.search-result-info {
+    flex: 1;
+}
+
+.search-result-title {
+    font-size: 10px;
+    color: var(--pixel-yellow);
+    margin-bottom: 5px;
+}
+
+.search-result-type {
+    font-size: 8px;
+    padding: 2px 8px;
+    background: var(--pixel-purple);
+    color: white;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+/* ============================================
+   华莱士彩蛋
+   ============================================ */
+.wallace-easter-egg {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 999;
+    transition: transform 0.3s;
+}
+
+.wallace-easter-egg:hover {
+    transform: scale(1.1);
+}
+
+.wallace-easter-egg img {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+}
+
+.egg-bubble {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background: var(--pixel-yellow);
+    color: var(--bg-primary);
+    padding: 8px 12px;
+    font-size: 8px;
+    border: 2px solid var(--bg-primary);
+    white-space: nowrap;
+    display: none;
+}
+
+.egg-bubble.show {
+    display: block;
+    animation: popIn 0.3s;
+}
+
+@keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ============================================
+   模态框
+   ============================================ */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-dialog {
+    max-width: 400px;
+    width: 90%;
+    padding: 30px !important;
+}
+
+.modal-title {
+    font-size: 14px;
+    color: var(--pixel-yellow);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.modal-tip {
+    font-size: 8px;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 15px;
+}
+
+.nes-field {
+    margin-bottom: 15px;
+}
+
+.nes-field label {
+    display: block;
+    font-size: 8px;
+    margin-bottom: 5px;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   提示消息
+   ============================================ */
+.toast-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: var(--bg-card);
+    border: 3px solid var(--pixel-green);
+    padding: 15px 20px;
+    font-size: 10px;
+    animation: slideIn 0.3s, slideOut 0.3s 2.7s forwards;
+    max-width: 300px;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+/* ============================================
+   页脚
+   ============================================ */
+.site-footer {
+    background: var(--bg-secondary);
+    border-top: 4px solid var(--pixel-red);
+    padding: 30px 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 10px;
+    color: var(--pixel-yellow);
+}
+
+.footer-wallace {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+}
+
+.footer-copy, .footer-tip {
+    font-size: 8px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+/* ============================================
+   用户面板
+   ============================================ */
+.user-panel {
+    background: var(--bg-card);
+    border: 4px solid var(--pixel-yellow);
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    image-rendering: pixelated;
+    margin-bottom: 15px;
+}
+
+.user-info {
+    font-size: 10px;
+    margin-bottom: 20px;
+}
+
+.settings-group {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px dashed var(--border-color);
+}
+
+.settings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* ============================================
+   响应式
+   ============================================ */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-secondary);
+        flex-direction: column;
+        padding: 10px;
+        border-top: 2px solid var(--pixel-red);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .hero-title {
+        font-size: 16px;
+    }
+
+    .game-grid, .news-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .page {
+        padding: 15px;
+    }
+
+    .wallace-easter-egg {
+        bottom: 80px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-wallace img {
+        width: 96px;
+        height: 96px;
+    }
+}
+
+/* ============================================
+   滚动条
+   ============================================ */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pixel-red);
+    border: 2px solid var(--bg-primary);
+}

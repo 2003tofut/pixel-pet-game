@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华莱士游戏站 - 8bit像素游戏资讯与下载</title>
+    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ========== 顶部导航 ========== -->
+    <nav class="site-nav" id="siteNav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" onclick="showPage('home')">
+                <img src="assets/sprites/wallace_logo.png" alt="华莱士" class="wallace-logo">
+                <span class="logo-text">华莱士游戏站</span>
+            </a>
+            
+            <button class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('home')" class="nav-item active" data-page="home">
+                    <span class="nav-icon">🏠</span> 首页
+                </a></li>
+                <li><a href="#" onclick="showPage('news')" class="nav-item" data-page="news">
+                    <span class="nav-icon">📰</span> 游戏资讯
+                </a></li>
+                <li><a href="#" onclick="showPage('games')" class="nav-item" data-page="games">
+                    <span class="nav-icon">🎮</span> 游戏下载
+                </a></li>
+                <li><a href="#" onclick="showPage('search')" class="nav-item" data-page="search">
+                    <span class="nav-icon">🔍</span> 搜索
+                </a></li>
+                <li><a href="#" onclick="showPage('favorites')" class="nav-item" data-page="favorites">
+                    <span class="nav-icon">⭐</span> 我的收藏
+                </a></li>
+                <li><a href="#" onclick="showPage('user')" class="nav-item" data-page="user">
+                    <span class="nav-icon">👤</span> 用户中心
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ========== 主内容区 ========== -->
+    <main class="main-content">
+        
+        <!-- ===== 首页 ===== -->
+        <section id="page-home" class="page page-home active">
+            <div class="hero-banner">
+                <div class="hero-bg"></div>
+                <div class="hero-content">
+                    <div class="hero-wallace">
+                        <img src="assets/sprites/wallace_happy.png" alt="华莱士" class="wallace-hero-img" id="heroWallace">
+                    </div>
+                    <h1 class="hero-title">华莱士游戏站</h1>
+                    <p class="hero-subtitle">8bit像素风格 · 游戏资讯 · 免费下载</p>
+                    <div class="hero-tags">
+                        <span class="nes-badge"><span class="is-primary">复古</span></span>
+                        <span class="nes-badge"><span class="is-success">免费</span></span>
+                        <span class="nes-badge"><span class="is-warning">怀旧</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 热门游戏轮播 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="title-icon">🔥</span> 热门游戏
+                </h2>
+                <div class="game-carousel" id="homeCarousel">
+                    <div class="carousel-track" id="carouselTrack"></div>
+                    <button class="carousel-btn prev" onclick="carouselPrev()">&lt;</button>
+                    <button class="carousel-btn next" onclick="carouselNext()">&gt;</button>
+                </div>
+            </div>
+
+            <!-- 最新资讯 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="title-icon">📰</span> 最新资讯
+                </h2>
+                <div class="news-grid" id="homeNewsGrid"></div>
+            </div>
+
+            <!-- 游戏分类入口 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="title-icon">📂</span> 游戏分类
+                </h2>
+                <div class="category-grid">
+                    <a href="#" class="category-card" onclick="showPage('games'); filterGames('shooter'); return false;">
+                        <img src="assets/sprites/icon_shooter.png" alt="射击" class="category-icon">
+                        <span class="category-name">射击游戏</span>
+                    </a>
+                    <a href="#" class="category-card" onclick="showPage('games'); filterGames('rpg'); return false;">
+                        <img src="assets/sprites/icon_rpg.png" alt="RPG" class="category-icon">
+                        <span class="category-name">角色扮演</span>
+                    </a>
+                    <a href="#" class="category-card" onclick="showPage('games'); filterGames('sim'); return false;">
+                        <img src="assets/sprites/icon_sim.png" alt="模拟" class="category-icon">
+                        <span class="category-name">模拟经营</span>
+                    </a>
+                    <a href="#" class="category-card" onclick="showPage('games'); filterGames('adventure'); return false;">
+                        <img src="assets/sprites/icon_adventure.png" alt="冒险" class="category-icon">
+                        <span class="category-name">冒险解谜</span>
+                    </a>
+                    <a href="#" class="category-card" onclick="showPage('games'); filterGames('puzzle'); return false;">
+                        <img src="assets/sprites/icon_puzzle.png" alt="解谜" class="category-icon">
+                        <span class="category-name">益智休闲</span>
+                    </a>
+                    <a href="#" class="category-card" onclick="showPage('games'); filterGames('indie'); return false;">
+                        <img src="assets/sprites/icon_indie.png" alt="独立" class="category-icon">
+                        <span class="category-name">小众神作</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 游戏资讯页 ===== -->
+        <section id="page-news" class="page page-news">
+            <div class="page-header">
+                <h1 class="page-title">📰 游戏资讯</h1>
+                <div class="news-tabs">
+                    <button class="nes-btn is-primary" onclick="filterNews('all')">全部</button>
+                    <button class="nes-btn" onclick="filterNews('newgame')">新游预告</button>
+                    <button class="nes-btn" onclick="filterNews('review')">游戏评测</button>
+                    <button class="nes-btn" onclick="filterNews('industry')">行业动态</button>
+                    <button class="nes-btn" onclick="filterNews('guide')">攻略技巧</button>
+                </div>
+            </div>
+            <div class="news-list" id="newsList"></div>
+        </section>
+
+        <!-- ===== 资讯详情页 ===== -->
+        <section id="page-news-detail" class="page page-news-detail">
+            <div class="page-header">
+                <button class="nes-btn" onclick="showPage('news')">← 返回列表</button>
+            </div>
+            <div class="news-detail" id="newsDetail"></div>
+            <div class="related-news">
+                <h3 class="section-title">相关推荐</h3>
+                <div class="news-grid" id="relatedNews"></div>
+            </div>
+        </section>
+
+        <!-- ===== 游戏下载页 ===== -->
+        <section id="page-games" class="page page-games">
+            <div class="page-header">
+                <h1 class="page-title">🎮 游戏下载</h1>
+                <div class="game-filters">
+                    <button class="nes-btn is-primary" onclick="filterGames('all')">全部</button>
+                    <button class="nes-btn" onclick="filterGames('shooter')">射击</button>
+                    <button class="nes-btn" onclick="filterGames('rpg')">RPG</button>
+                    <button class="nes-btn" onclick="filterGames('sim')">模拟</button>
+                    <button class="nes-btn" onclick="filterGames('adventure')">冒险</button>
+                    <button class="nes-btn" onclick="filterGames('puzzle')">解谜</button>
+                    <button class="nes-btn" onclick="filterGames('indie')">独立</button>
+                </div>
+            </div>
+            <div class="game-grid" id="gameGrid"></div>
+        </section>
+
+        <!-- ===== 游戏详情页 ===== -->
+        <section id="page-game-detail" class="page page-game-detail">
+            <div class="page-header">
+                <button class="nes-btn" onclick="showPage('games')">← 返回列表</button>
+            </div>
+            <div class="game-detail" id="gameDetail"></div>
+        </section>
+
+        <!-- ===== 搜索页 ===== -->
+        <section id="page-search" class="page page-search">
+            <div class="page-header">
+                <h1 class="page-title">🔍 搜索</h1>
+            </div>
+            <div class="search-box">
+                <div class="nes-field">
+                    <input type="text" id="searchInput" class="nes-input" placeholder="搜索游戏或资讯..." oninput="doSearch()">
+                </div>
+                <div class="search-filters">
+                    <label><input type="checkbox" id="searchGames" checked onchange="doSearch()"> 游戏</label>
+                    <label><input type="checkbox" id="searchNews" checked onchange="doSearch()"> 资讯</label>
+                </div>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </section>
+
+        <!-- ===== 收藏页 ===== -->
+        <section id="page-favorites" class="page page-favorites">
+            <div class="page-header">
+                <h1 class="page-title">⭐ 我的收藏</h1>
+            </div>
+            <div class="favorites-tabs">
+                <button class="nes-btn is-primary" onclick="showFavTab('games')">收藏的游戏</button>
+                <button class="nes-btn" onclick="showFavTab('news')">收藏的资讯</button>
+            </div>
+            <div id="favoritesContent"></div>
+        </section>
+
+        <!-- ===== 用户中心 ===== -->
+        <section id="page-user" class="page page-user">
+            <div id="userPanel"></div>
+        </section>
+
+    </main>
+
+    <!-- ========== 华莱士彩蛋 ========== -->
+    <div class="wallace-easter-egg" id="wallaceEgg" onclick="wallaceInteract()">
+        <img src="assets/sprites/wallace_idle.png" alt="华莱士" id="eggWallace">
+        <div class="egg-bubble" id="eggBubble"></div>
+    </div>
+
+    <!-- ========== 登录弹窗 ========== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-dialog nes-container is-dark">
+            <h2 class="modal-title">🔐 用户登录</h2>
+            <div class="nes-field">
+                <label for="loginUsername">用户名</label>
+                <input type="text" id="loginUsername" class="nes-input" placeholder="输入用户名">
+            </div>
+            <div class="nes-field">
+                <label for="loginPassword">密码</label>
+                <input type="password" id="loginPassword" class="nes-input" placeholder="输入密码">
+            </div>
+            <div class="modal-actions">
+                <button class="nes-btn is-primary" onclick="handleLogin()">登录</button>
+                <button class="nes-btn" onclick="handleRegister()">注册</button>
+                <button class="nes-btn" onclick="closeModal('loginModal')">关闭</button>
+            </div>
+            <p class="modal-tip">💡 可直接浏览，无需注册</p>
+        </div>
+    </div>
+
+    <!-- ========== 提示消息 ========== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ========== 页脚 ========== -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/sprites/wallace_idle.png" alt="华莱士" class="footer-wallace">
+                <span>华莱士游戏站 · 8bit像素风格</span>
+            </div>
+            <p class="footer-copy">© 2025 8bit Game Hub · 游戏资讯与下载平台</p>
+            <p class="footer-tip">仅供学习交流，版权归原版权方所有</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
