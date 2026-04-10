@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>像素宠物养成 - 8bit Pet Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 加载画面 -->
+    <div id="loading-screen" class="screen active">
+        <div class="pixel-border loading-content">
+            <div class="game-title">像素宠物</div>
+            <div class="game-subtitle">8BIT PET GAME</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-text">LOADING...</div>
+        </div>
+    </div>
+
+    <!-- 登录注册页面 -->
+    <div id="auth-screen" class="screen">
+        <div class="pixel-bg" style="background-image: url('assets/sprites/bg_stars.png'); background-repeat: repeat; background-size: 300px;"></div>
+        <div class="auth-container">
+            <div class="pixel-border auth-box">
+                <div class="auth-title">
+                    <span class="pixel-icon">🐱</span>
+                    像素宠物世界
+                </div>
+                
+                <!-- 登录表单 -->
+                <div id="login-form" class="auth-form active">
+                    <div class="form-title">LOGIN</div>
+                    <div class="pixel-input-group">
+                        <label>用户名</label>
+                        <input type="text" id="login-username" class="pixel-input" placeholder="输入用户名" maxlength="12">
+                    </div>
+                    <div class="pixel-input-group">
+                        <label>密码</label>
+                        <input type="password" id="login-password" class="pixel-input" placeholder="输入密码" maxlength="12">
+                    </div>
+                    <button class="pixel-btn primary" onclick="handleLogin()">
+                        <span class="btn-text">登录</span>
+                    </button>
+                    <div class="auth-switch">
+                        没有账号？<a href="#" onclick="showRegister()">立即注册</a>
+                    </div>
+                    <div class="auth-switch">
+                        <a href="#" onclick="showForgotPassword()">忘记密码？</a>
+                    </div>
+                </div>
+
+                <!-- 注册表单 -->
+                <div id="register-form" class="auth-form">
+                    <div class="form-title">REGISTER</div>
+                    <div class="pixel-input-group">
+                        <label>用户名</label>
+                        <input type="text" id="reg-username" class="pixel-input" placeholder="6-12位字母数字" maxlength="12">
+                    </div>
+                    <div class="pixel-input-group">
+                        <label>密码</label>
+                        <input type="password" id="reg-password" class="pixel-input" placeholder="6-12位字母数字" maxlength="12">
+                    </div>
+                    <div class="pixel-input-group">
+                        <label>确认密码</label>
+                        <input type="password" id="reg-confirm" class="pixel-input" placeholder="再次输入密码" maxlength="12">
+                    </div>
+                    <button class="pixel-btn primary" onclick="handleRegister()">
+                        <span class="btn-text">注册</span>
+                    </button>
+                    <div class="auth-switch">
+                        已有账号？<a href="#" onclick="showLogin()">立即登录</a>
+                    </div>
+                </div>
+
+                <!-- 密码重置表单 -->
+                <div id="reset-form" class="auth-form">
+                    <div class="form-title">RESET PASSWORD</div>
+                    <div class="pixel-input-group">
+                        <label>用户名</label>
+                        <input type="text" id="reset-username" class="pixel-input" placeholder="输入注册时的用户名" maxlength="12">
+                    </div>
+                    <div class="pixel-input-group">
+                        <label>新密码</label>
+                        <input type="password" id="reset-password" class="pixel-input" placeholder="输入新密码" maxlength="12">
+                    </div>
+                    <div class="pixel-input-group">
+                        <label>确认新密码</label>
+                        <input type="password" id="reset-confirm" class="pixel-input" placeholder="再次输入新密码" maxlength="12">
+                    </div>
+                    <button class="pixel-btn primary" onclick="handleResetPassword()">
+                        <span class="btn-text">重置密码</span>
+                    </button>
+                    <div class="auth-switch">
+                        <a href="#" onclick="showLogin()">返回登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pixel-stars"></div>
+    </div>
+
+    <!-- 宠物选择页面 -->
+    <div id="select-screen" class="screen">
+        <div class="pixel-bg" style="background-image: url('assets/sprites/bg_grass.png'); background-repeat: repeat; background-size: 300px;"></div>
+        <div class="screen-header">
+            <div class="user-info">
+                <span class="pixel-icon">👤</span>
+                <span id="display-username">玩家</span>
+            </div>
+            <button class="pixel-btn small" onclick="handleLogout()">
+                <span class="btn-text">退出</span>
+            </button>
+        </div>
+        <div class="select-container">
+            <div class="section-title">选择你的宠物</div>
+            <div class="pet-grid">
+                <div class="pet-card" onclick="selectPet('cat')">
+                    <img class="pet-sprite" src="assets/sprites/cat_baby.png" alt="像素猫">
+                    <div class="pet-name">像素猫</div>
+                    <div class="pet-desc">可爱粘人</div>
+                </div>
+                <div class="pet-card" onclick="selectPet('dog')">
+                    <img class="pet-sprite" src="assets/sprites/dog_baby.png" alt="像素狗">
+                    <div class="pet-name">像素狗</div>
+                    <div class="pet-desc">忠诚活泼</div>
+                </div>
+                <div class="pet-card" onclick="selectPet('monster')">
+                    <img class="pet-sprite" src="assets/sprites/monster_baby.png" alt="像素怪兽">
+                    <div class="pet-name">像素怪兽</div>
+                    <div class="pet-desc">神秘独特</div>
+                </div>
+                <div class="pet-card" onclick="selectPet('bunny')">
+                    <img class="pet-sprite" src="assets/sprites/bunny_baby.png" alt="像素兔">
+                    <div class="pet-name">像素兔</div>
+                    <div class="pet-desc">温顺可爱</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主游戏页面 -->
+    <div id="game-screen" class="screen">
+        <div class="pixel-bg" style="background-image: url('assets/sprites/bg_room.png'); background-repeat: repeat; background-size: 300px;"></div>
+        
+        <!-- 顶部状态栏 -->
+        <div class="game-header">
+            <div class="user-info">
+                <span class="pixel-icon">👤</span>
+                <span id="game-username">玩家</span>
+            </div>
+            <div class="header-btns">
+                <button class="pixel-btn small" onclick="showAchievements()">
+                    <span class="btn-icon">🏆</span>
+                </button>
+                <button class="pixel-btn small" onclick="showSettings()">
+                    <span class="btn-icon">⚙️</span>
+                </button>
+                <button class="pixel-btn small" onclick="showHelp()">
+                    <span class="btn-icon">❓</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 主游戏区域 -->
+        <div class="game-main">
+            <!-- 宠物展示区 -->
+            <div class="pet-area">
+                <div class="pet-stage">
+                    <img id="pet-sprite" class="pet-display" src="assets/sprites/cat_baby.png" alt="宠物">
+                    <div class="pet-effects"></div>
+                </div>
+                <div class="pet-info">
+                    <div class="pet-name-display">
+                        <span id="pet-name">小像素</span>
+                        <span id="pet-stage-text" class="stage-badge">幼崽</span>
+                    </div>
+                    <div class="growth-bar">
+                        <div class="growth-label">成长值</div>
+                        <div class="growth-progress">
+                            <div id="growth-fill" class="growth-fill"></div>
+                        </div>
+                        <div id="growth-text" class="growth-text">0/100</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作区域 -->
+            <div class="action-area">
+                <div class="action-btns">
+                    <button class="action-btn" onclick="doAction('feed')">
+                        <span class="action-icon">🍖</span>
+                        <span class="action-name">喂食</span>
+                        <span id="food-count" class="item-count">x10</span>
+                    </button>
+                    <button class="action-btn" onclick="doAction('clean')">
+                        <span class="action-icon">🧹</span>
+                        <span class="action-name">清洁</span>
+                        <span id="clean-count" class="item-count">x10</span>
+                    </button>
+                    <button class="action-btn" onclick="doAction('play')">
+                        <span class="action-icon">🎮</span>
+                        <span class="action-name">玩耍</span>
+                    </button>
+                    <button class="action-btn" onclick="doAction('rest')">
+                        <span class="action-icon">💤</span>
+                        <span class="action-name">休息</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 状态栏 -->
+        <div class="status-bar">
+            <div class="stat-item">
+                <span class="stat-icon">🍖</span>
+                <span class="stat-label">饥饿</span>
+                <div class="stat-bar">
+                    <div id="hunger-bar" class="stat-fill hunger"></div>
+                </div>
+                <span id="hunger-value" class="stat-value">100</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon">✨</span>
+                <span class="stat-label">清洁</span>
+                <div class="stat-bar">
+                    <div id="clean-bar" class="stat-fill clean"></div>
+                </div>
+                <span id="clean-value" class="stat-value">100</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon">😊</span>
+                <span class="stat-label">快乐</span>
+                <div class="stat-bar">
+                    <div id="happy-bar" class="stat-fill happy"></div>
+                </div>
+                <span id="happy-value" class="stat-value">100</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon">💪</span>
+                <span class="stat-label">体力</span>
+                <div class="stat-bar">
+                    <div id="energy-bar" class="stat-fill energy"></div>
+                </div>
+                <span id="energy-value" class="stat-value">100</span>
+            </div>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <button class="nav-btn" onclick="showCheckIn()">
+                <span class="nav-icon">📅</span>
+                <span class="nav-text">签到</span>
+            </button>
+            <button class="nav-btn" onclick="showShop()">
+                <span class="nav-icon">🛒</span>
+                <span class="nav-text">道具</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 弹窗容器 -->
+    <div id="modal-container" class="modal-container">
+        <!-- 成就弹窗 -->
+        <div id="achievement-modal" class="modal">
+            <div class="modal-content pixel-border">
+                <div class="modal-header">
+                    <span class="modal-title">🏆 成就系统</span>
+                    <button class="close-btn" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div id="achievement-list" class="achievement-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设置弹窗 -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content pixel-border">
+                <div class="modal-header">
+                    <span class="modal-title">⚙️ 设置</span>
+                    <button class="close-btn" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-item">
+                        <span class="setting-label">背景音乐</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="bgm-toggle" onchange="toggleBGM()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">音效</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="sfx-toggle" checked onchange="toggleSFX()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-divider"></div>
+                    <button class="pixel-btn danger" onclick="resetGame()">
+                        <span class="btn-text">重置游戏</span>
+                    </button>
+                    <button class="pixel-btn" onclick="handleLogout()">
+                        <span class="btn-text">退出登录</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 帮助弹窗 -->
+        <div id="help-modal" class="modal">
+            <div class="modal-content pixel-border">
+                <div class="modal-header">
+                    <span class="modal-title">❓ 游戏帮助</span>
+                    <button class="close-btn" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-body help-content">
+                    <div class="help-section">
+                        <h3>🎮 核心玩法</h3>
+                        <p>照顾你的像素宠物，让它健康成长！</p>
+                    </div>
+                    <div class="help-section">
+                        <h3>📊 属性说明</h3>
+                        <ul>
+                            <li><span class="help-icon">🍖</span> 饥饿值：喂食可以恢复</li>
+                            <li><span class="help-icon">✨</span> 清洁值：清洁可以恢复</li>
+                            <li><span class="help-icon">😊</span> 快乐值：玩耍可以恢复</li>
+                            <li><span class="help-icon">💪</span> 体力值：休息可以恢复</li>
+                        </ul>
+                    </div>
+                    <div class="help-section">
+                        <h3>📈 成长系统</h3>
+                        <p>提升属性可以增加成长值，成长值满后宠物会进化！</p>
+                        <p>幼崽 → 青年 → 成年</p>
+                    </div>
+                    <div class="help-section">
+                        <h3>📅 签到奖励</h3>
+                        <p>每日签到可获得道具奖励，连续签到奖励更多！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 签到弹窗 -->
+        <div id="checkin-modal" class="modal">
+            <div class="modal-content pixel-border">
+                <div class="modal-header">
+                    <span class="modal-title">📅 每日签到</span>
+                    <button class="close-btn" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="checkin-info">
+                        <div class="checkin-days">
+                            已连续签到 <span id="checkin-days">0</span> 天
+                        </div>
+                        <div class="checkin-calendar" id="checkin-calendar"></div>
+                    </div>
+                    <button id="checkin-btn" class="pixel-btn primary large" onclick="doCheckIn()">
+                        <span class="btn-text">签到领奖励</span>
+                    </button>
+                    <div class="checkin-rewards">
+                        <div class="reward-info">签到奖励：随机1-3个道具</div>
+                        <div class="reward-info">连续3天：额外+5道具</div>
+                        <div class="reward-info">连续7天：额外+10道具</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 小游戏弹窗 -->
+        <div id="minigame-modal" class="modal">
+            <div class="modal-content pixel-border">
+                <div class="modal-header">
+                    <span class="modal-title">🎮 猜数字</span>
+                    <button class="close-btn" onclick="closeMiniGame()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="minigame-content">
+                        <div class="game-hint">猜一个1-10的数字！</div>
+                        <div class="number-grid" id="number-grid"></div>
+                        <div class="game-result" id="game-result"></div>
+                        <div class="game-timer" id="game-timer">剩余时间: 10s</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
